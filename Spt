@@ -37,13 +37,36 @@ local Window = Rayfield:CreateWindow({
 local MainTab = Window:CreateTab("Main", 4483362458) -- Title, Image
 local MainSection = MainTab:CreateSection("Main")
 
-local Toggle = MainTab:CreateToggle({
-   Name = "Auto Farm Earth NPC",
-   CurrentValue = false,
-   Flag = "Toggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   local blacklist = {"fire", "ice", "earthboss"}
+local MainToggle = MainTab:CreateToggle({
+    Name = "Auto Kill EarthNPC",
+    CurrentValue = false,
+    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        local runVariable = Value
+local blacklist = {"fire", "ice", "earthboss"}
 local chosenskill = "punch" -- You can pick between "punch" and "fire"
+
+local tweenService = game:GetService("TweenService")
+
+local debounce = false
+
+local function playerTweenFunction(cframe)
+    if debounce then return end
+    debounce = true
+
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+    if not HumanoidRootPart then return end
+
+    local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+    local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
+    tween:Play()
+
+    tween.Completed:Connect(function()
+        debounce = false
+    end)
+end
 
 local function isBlacklisted(name)
     local lowerName = name:lower()
@@ -55,13 +78,37 @@ local function isBlacklisted(name)
     return false
 end
 
-while true do
+local function noclip(bool)
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+
+    if bool == true then
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    else
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = true
+            end
+        end
+    end
+end
+
+local runVariable = true
+while runVariable == true do
+    noclip(true)
+
     for _, npc in ipairs(workspace.IgnoreSpace:GetChildren()) do
         if npc:IsA("Model") and npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") and not isBlacklisted(npc.Name) then
             while npc.Humanoid.Health > 0 do
                 if chosenskill == "punch" then
+                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
                 elseif chosenskill == "fire" then 
+                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
                     game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
                 end
                 wait()
@@ -69,17 +116,43 @@ while true do
         end
     end
     wait()
-            end
-   end,
-})
+end
 
-local Toggle = MainTab:CreateToggle({
-   Name = "Auto Farm Ice NPC",
-   CurrentValue = false,
-   Flag = "Toggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   local blacklist = {"fire", "earth", "iceboss"}
+Toggle:Set(false)
+
+    end,
+ })
+
+local MainToggle = MainTab:CreateToggle({
+    Name = "Auto Kill IceNPC",
+    CurrentValue = false,
+    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        local runVariable = Value
+local blacklist = {"fire", "earth", "iceboss"}
 local chosenskill = "punch" -- You can pick between "punch" and "fire"
+
+local tweenService = game:GetService("TweenService")
+
+local debounce = false
+
+local function playerTweenFunction(cframe)
+    if debounce then return end
+    debounce = true
+
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+    if not HumanoidRootPart then return end
+
+    local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+    local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
+    tween:Play()
+
+    tween.Completed:Connect(function()
+        debounce = false
+    end)
+end
 
 local function isBlacklisted(name)
     local lowerName = name:lower()
@@ -91,13 +164,37 @@ local function isBlacklisted(name)
     return false
 end
 
-while true do
+local function noclip(bool)
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+
+    if bool == true then
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    else
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = true
+            end
+        end
+    end
+end
+
+local runVariable = true
+while runVariable == true do
+    noclip(true)
+
     for _, npc in ipairs(workspace.IgnoreSpace:GetChildren()) do
         if npc:IsA("Model") and npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") and not isBlacklisted(npc.Name) then
             while npc.Humanoid.Health > 0 do
                 if chosenskill == "punch" then
+                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
                 elseif chosenskill == "fire" then 
+                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
                     game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
                 end
                 wait()
@@ -105,9 +202,11 @@ while true do
         end
     end
     wait()
-            end
-   end,
-})
+end
+Toggle:Set(false)
+    end,
+ })
+
 
 local Toggle = MainTab:CreateToggle({
    Name = "Auto Kill EarthBoss",
@@ -137,7 +236,7 @@ local function getEarthBoss()
     return nil
 end
 
-while true() do
+while wait() do
     local boss = getEarthBoss()
     if boss then
         local hrp = boss.HumanoidRootPart
@@ -186,7 +285,7 @@ local function getIceBoss()
     return nil
 end
 
-while true() do
+while wait() do
     local boss = getIceBoss()
     if boss then
         local hrp = boss.HumanoidRootPart
@@ -204,5 +303,22 @@ while true() do
         game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
     end
             end
+   end,
+})
+
+local MainButton = MainTab:CreateButton({
+   Name = "Auto Accept Frost Quest (Space)",
+   Callback = function()
+   local args = {
+    [1] = "Frost"
+}
+
+game:GetService("ReplicatedStorage").Events.Quest:FireServer(unpack(args))
+            local args = {
+    [1] = "Frost"
+}
+
+game:GetService("ReplicatedStorage").Functions.Quest:InvokeServer(unpack(args))
+            
    end,
 })
