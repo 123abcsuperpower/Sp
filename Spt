@@ -155,7 +155,7 @@ local function playerTweenFunction(cframe)
     local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
     if not HumanoidRootPart then return end
 
-    local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
     local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
     tween:Play()
 
