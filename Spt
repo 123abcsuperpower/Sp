@@ -203,6 +203,15 @@ while runVariable == true do
                 if chosenskill == "punch" then
                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
+                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energyblast", npc.HumanoidRootPart.CFrame)
+                    game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(npc.HumanoidRootPart.CFrame)
+
+                    -- Added Remote Event for AncientItem
+                    local args = {
+                        [1] = "AncientItem",
+                        [2] = workspace.ingeik.HumanoidRootPart.CFrame
+                    }
+                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
                 elseif chosenskill == "fire" then 
                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
                     game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
