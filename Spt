@@ -133,7 +133,7 @@ Toggle:Set(false)
     end,
  })
 
-local Button = MainTab:CreateButton({
+local MainButton = MainTab:CreateButton({
    Name = "Anti Afk",
    Callback = function()
  
@@ -143,12 +143,6 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     VirtualUser:CaptureController()
     VirtualUser:ClickButton2(Vector2.new())
 end)
- 
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "AntiAFK loaded!",
-    Text = "Made by T",
-    Button1 = "Thanks",
-    Duration = 5
 
    end,
 })
