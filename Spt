@@ -134,9 +134,8 @@ Toggle:Set(false)
  })
 
 local Button = MainTab:CreateButton({
-   Name = "Button Example",
+   Name = "Anti Afk",
    Callback = function()
-   -- ANTI AFK made by Muscle_legends2021 [Gio]
  
 local VirtualUser = game:GetService('VirtualUser')
  
@@ -150,7 +149,7 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
     Text = "Made by T",
     Button1 = "Thanks",
     Duration = 5
-})
+
    end,
 })
 
