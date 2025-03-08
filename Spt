@@ -1,469 +1,469 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-
-local Window = Rayfield:CreateWindow({
-   Name = "T Hub",
-   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "T Hub",
-   LoadingSubtitle = "by T",
-   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
-
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
-
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "T Hub"
-   },
-
-   Discord = {
-      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
-
-   KeySystem = false, -- Set this to true to use our key system
-   KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Key System",
-      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-   }
-})
-
-local MainTab = Window:CreateTab("Main", 4483362458) -- Title, Image
-local MainSection = MainTab:CreateSection("Main")
-
-local MainToggle = MainTab:CreateToggle({
-    Name = "Auto Kill EarthNPC",
-    CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        local runVariable = Value
-local blacklist = {"fire", "ice", "iceboss"}
-local chosenskill = "punch" -- You can pick between "punch" and "fire"
-
-local tweenService = game:GetService("TweenService")
-
-local debounce = false
-
-local function playerTweenFunction(cframe)
-    if debounce then return end
-    debounce = true
-
-    local player = game.Players.LocalPlayer
-    local character = player.Character
-    local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
-    if not HumanoidRootPart then return end
-
-    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-    local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
-    tween:Play()
-
-    tween.Completed:Connect(function()
-        debounce = false
-    end)
-end
-
-local function isBlacklisted(name)
-    local lowerName = name:lower()
-    for _, word in ipairs(blacklist) do
-        if lowerName:find(word) then
-            return true
-        end
-    end
-    return false
-end
-
-local function noclip(bool)
-    local player = game.Players.LocalPlayer
-    local character = player.Character
-
-    if bool == true then
-        for _, part in pairs(character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = false
-            end
-        end
-    else
-        for _, part in pairs(character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = true
-            end
-        end
-    end
-end
-
-local runVariable = true
-while runVariable == true do
-    noclip(true)
-
-    for _, npc in ipairs(workspace.IgnoreSpace:GetChildren()) do
-        if npc:IsA("Model") and npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") and not isBlacklisted(npc.Name) then
-            while npc.Humanoid.Health > 0 do
-                if chosenskill == "punch" then
-                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energyblast", npc.HumanoidRootPart.CFrame)
-                    game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(npc.HumanoidRootPart.CFrame)
-
-                    -- Added Remote Event for AncientItem
-                    local args = {
-                        [1] = "AncientItem",
-                        [2] = workspace.ingeik.HumanoidRootPart.CFrame
-                    }
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-local args = {
-    [1] = "CorruptionBarrage"
-}
-
-game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-
-                elseif chosenskill == "fire" then 
-                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
-                    game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
-                end
-                wait()
-            end
-        end
-    end
-    wait()
-end
-
-Toggle:Set(false)
-
+ 
+ local Window = Rayfield:CreateWindow({
+    Name = "T Hub",
+    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+    LoadingTitle = "T Hub",
+    LoadingSubtitle = "by T",
+    Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+ 
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+ 
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = nil, -- Create a custom folder for your hub/game
+       FileName = "T Hub"
+    },
+ 
+    Discord = {
+       Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+    },
+ 
+    KeySystem = false, -- Set this to true to use our key system
+    KeySettings = {
+       Title = "Untitled",
+       Subtitle = "Key System",
+       Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+    }
+ })
+ 
+ local MainTab = Window:CreateTab("Main", 4483362458) -- Title, Image
+ local MainSection = MainTab:CreateSection("Main")
+ 
+ local MainToggle = MainTab:CreateToggle({
+     Name = "Auto Kill EarthNPC",
+     CurrentValue = false,
+     Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+     Callback = function(Value)
+         local runVariable = Value
+ local blacklist = {"fire", "ice", "iceboss"}
+ local chosenskill = "punch" -- You can pick between "punch" and "fire"
+ 
+ local tweenService = game:GetService("TweenService")
+ 
+ local debounce = false
+ 
+ local function playerTweenFunction(cframe)
+     if debounce then return end
+     debounce = true
+ 
+     local player = game.Players.LocalPlayer
+     local character = player.Character
+     local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+     if not HumanoidRootPart then return end
+ 
+     local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+     local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
+     tween:Play()
+ 
+     tween.Completed:Connect(function()
+         debounce = false
+     end)
+ end
+ 
+ local function isBlacklisted(name)
+     local lowerName = name:lower()
+     for _, word in ipairs(blacklist) do
+         if lowerName:find(word) then
+             return true
+         end
+     end
+     return false
+ end
+ 
+ local function noclip(bool)
+     local player = game.Players.LocalPlayer
+     local character = player.Character
+ 
+     if bool == true then
+         for _, part in pairs(character:GetChildren()) do
+             if part:IsA("BasePart") then
+                 part.CanCollide = false
+             end
+         end
+     else
+         for _, part in pairs(character:GetChildren()) do
+             if part:IsA("BasePart") then
+                 part.CanCollide = true
+             end
+         end
+     end
+ end
+ 
+ local runVariable = true
+ while runVariable == true do
+     noclip(true)
+ 
+     for _, npc in ipairs(workspace.IgnoreSpace:GetChildren()) do
+         if npc:IsA("Model") and npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") and not isBlacklisted(npc.Name) then
+             while npc.Humanoid.Health > 0 do
+                 if chosenskill == "punch" then
+                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energyblast", npc.HumanoidRootPart.CFrame)
+                     game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(npc.HumanoidRootPart.CFrame)
+ 
+                     -- Added Remote Event for AncientItem
+                     local args = {
+                         [1] = "AncientItem",
+                         [2] = workspace.ingeik.HumanoidRootPart.CFrame
+                     }
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+ local args = {
+     [1] = "CorruptionBarrage"
+ }
+ 
+ game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+ 
+                 elseif chosenskill == "fire" then 
+                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
+                     game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
+                 end
+                 wait()
+             end
+         end
+     end
+     wait()
+ end
+ 
+ Toggle:Set(false)
+ 
+     end,
+  })
+ 
+ local MainButton = MainTab:CreateButton({
+    Name = "Anti Afk",
+    Callback = function()
+ 
+ local VirtualUser = game:GetService('VirtualUser')
+ 
+ game:GetService('Players').LocalPlayer.Idled:Connect(function()
+     VirtualUser:CaptureController()
+     VirtualUser:ClickButton2(Vector2.new())
+ end)
+ 
     end,
  })
-
-local MainButton = MainTab:CreateButton({
-   Name = "Anti Afk",
-   Callback = function()
  
-local VirtualUser = game:GetService('VirtualUser')
+ local MainToggle = MainTab:CreateToggle({
+     Name = "Auto Kill IceNPC",
+     CurrentValue = false,
+     Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+     Callback = function(Value)
+         local runVariable = Value
+ local blacklist = {"fire", "earth", "iceboss"}
+ local chosenskill = "punch" -- You can pick between "punch" and "fire"
  
-game:GetService('Players').LocalPlayer.Idled:Connect(function()
-    VirtualUser:CaptureController()
-    VirtualUser:ClickButton2(Vector2.new())
-end)
-
-   end,
-})
-
-local MainToggle = MainTab:CreateToggle({
-    Name = "Auto Kill IceNPC",
+ local tweenService = game:GetService("TweenService")
+ 
+ local debounce = false
+ 
+ local function playerTweenFunction(cframe)
+     if debounce then return end
+     debounce = true
+ 
+     local player = game.Players.LocalPlayer
+     local character = player.Character
+     local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+     if not HumanoidRootPart then return end
+ 
+     local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+     local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
+     tween:Play()
+ 
+     tween.Completed:Connect(function()
+         debounce = false
+     end)
+ end
+ 
+ local function isBlacklisted(name)
+     local lowerName = name:lower()
+     for _, word in ipairs(blacklist) do
+         if lowerName:find(word) then
+             return true
+         end
+     end
+     return false
+ end
+ 
+ local function noclip(bool)
+     local player = game.Players.LocalPlayer
+     local character = player.Character
+ 
+     if bool == true then
+         for _, part in pairs(character:GetChildren()) do
+             if part:IsA("BasePart") then
+                 part.CanCollide = false
+             end
+         end
+     else
+         for _, part in pairs(character:GetChildren()) do
+             if part:IsA("BasePart") then
+                 part.CanCollide = true
+             end
+         end
+     end
+ end
+ 
+ local runVariable = true
+ while runVariable == true do
+     noclip(true)
+ 
+     for _, npc in ipairs(workspace.IgnoreSpace:GetChildren()) do
+         if npc:IsA("Model") and npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") and not isBlacklisted(npc.Name) then
+             while npc.Humanoid.Health > 0 do
+                 if chosenskill == "punch" then
+                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energyblast", npc.HumanoidRootPart.CFrame)
+                     game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(npc.HumanoidRootPart.CFrame)
+ 
+                     -- Added Remote Event for AncientItem
+                     local args = {
+                         [1] = "AncientItem",
+                         [2] = workspace.ingeik.HumanoidRootPart.CFrame
+                     }
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+                 elseif chosenskill == "fire" then 
+                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
+                     game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
+                 end
+                 wait()
+             end
+         end
+     end
+     wait()
+ end
+ Toggle:Set(false)
+     end,
+  })
+ 
+ 
+ local Toggle = MainTab:CreateToggle({
+    Name = "Auto Kill EarthBoss",
     CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Flag = "Toggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
-        local runVariable = Value
-local blacklist = {"fire", "earth", "iceboss"}
-local chosenskill = "punch" -- You can pick between "punch" and "fire"
-
-local tweenService = game:GetService("TweenService")
-
-local debounce = false
-
-local function playerTweenFunction(cframe)
-    if debounce then return end
-    debounce = true
-
-    local player = game.Players.LocalPlayer
-    local character = player.Character
-    local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
-    if not HumanoidRootPart then return end
-
-    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-    local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
-    tween:Play()
-
-    tween.Completed:Connect(function()
-        debounce = false
-    end)
-end
-
-local function isBlacklisted(name)
-    local lowerName = name:lower()
-    for _, word in ipairs(blacklist) do
-        if lowerName:find(word) then
-            return true
-        end
-    end
-    return false
-end
-
-local function noclip(bool)
-    local player = game.Players.LocalPlayer
-    local character = player.Character
-
-    if bool == true then
-        for _, part in pairs(character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = false
-            end
-        end
-    else
-        for _, part in pairs(character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = true
-            end
-        end
-    end
-end
-
-local runVariable = true
-while runVariable == true do
-    noclip(true)
-
-    for _, npc in ipairs(workspace.IgnoreSpace:GetChildren()) do
-        if npc:IsA("Model") and npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") and not isBlacklisted(npc.Name) then
-            while npc.Humanoid.Health > 0 do
-                if chosenskill == "punch" then
-                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energyblast", npc.HumanoidRootPart.CFrame)
-                    game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(npc.HumanoidRootPart.CFrame)
-
-                    -- Added Remote Event for AncientItem
-                    local args = {
-                        [1] = "AncientItem",
-                        [2] = workspace.ingeik.HumanoidRootPart.CFrame
-                    }
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-                elseif chosenskill == "fire" then 
-                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
-                    game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
-                end
-                wait()
-            end
-        end
-    end
-    wait()
-end
-Toggle:Set(false)
+    local blacklist = { "earthnpc", "fire", "ice" }
+ 
+ local function isBlacklisted(name)
+     local lowerName = name:lower()
+     for _, word in ipairs(blacklist) do
+         if lowerName:find(word) then
+             return true
+         end
+     end
+     return false
+ end
+ 
+ local function getEarthBoss()
+     for _, obj in ipairs(workspace.IgnoreSpace:GetChildren()) do
+         local lowerName = obj.Name:lower()
+         -- Check if the object name contains "earthboss" and is not blacklisted
+         if lowerName:find("earthboss") and not isBlacklisted(lowerName) and obj:FindFirstChild("HumanoidRootPart") then
+             return obj
+         end
+     end
+     return nil
+ end
+ 
+ while wait() do
+     local boss = getEarthBoss()
+     if boss then
+         local hrp = boss.HumanoidRootPart
+         local pivot = hrp:GetPivot()
+         local partVector = hrp.Position
+ 
+         local args1 = { "energypunch", pivot }
+         game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args1))
+ 
+         local args2 = { pivot }
+         game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(unpack(args2))
+ 
+         game:GetService("Players").LocalPlayer.Character.Fire:FireServer(partVector)
+ 
+         game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
+     end
+             end
     end,
  })
-
-
-local Toggle = MainTab:CreateToggle({
-   Name = "Auto Kill EarthBoss",
-   CurrentValue = false,
-   Flag = "Toggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   local blacklist = { "earthnpc", "fire", "ice" }
-
-local function isBlacklisted(name)
-    local lowerName = name:lower()
-    for _, word in ipairs(blacklist) do
-        if lowerName:find(word) then
-            return true
-        end
-    end
-    return false
-end
-
-local function getEarthBoss()
-    for _, obj in ipairs(workspace.IgnoreSpace:GetChildren()) do
-        local lowerName = obj.Name:lower()
-        -- Check if the object name contains "earthboss" and is not blacklisted
-        if lowerName:find("earthboss") and not isBlacklisted(lowerName) and obj:FindFirstChild("HumanoidRootPart") then
-            return obj
-        end
-    end
-    return nil
-end
-
-while wait() do
-    local boss = getEarthBoss()
-    if boss then
-        local hrp = boss.HumanoidRootPart
-        local pivot = hrp:GetPivot()
-        local partVector = hrp.Position
-        
-        local args1 = { "energypunch", pivot }
-        game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args1))
-        
-        local args2 = { pivot }
-        game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(unpack(args2))
-        
-        game:GetService("Players").LocalPlayer.Character.Fire:FireServer(partVector)
-
-        game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
-    end
-            end
-   end,
-})
-
-local Toggle = MainTab:CreateToggle({
-   Name = "Auto Kill IceBoss",
-   CurrentValue = false,
-   Flag = "Toggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   local blacklist = { "earth", "fire", "icenpc" }
-
-local function isBlacklisted(name)
-    local lowerName = name:lower()
-    for _, word in ipairs(blacklist) do
-        if lowerName:find(word) then
-            return true
-        end
-    end
-    return false
-end
-
-local function getIceBoss()
-    for _, obj in ipairs(workspace.IgnoreSpace:GetChildren()) do
-        local lowerName = obj.Name:lower()
-        -- Check if the object name contains "earthboss" and is not blacklisted
-        if lowerName:find("iceboss") and not isBlacklisted(lowerName) and obj:FindFirstChild("HumanoidRootPart") then
-            return obj
-        end
-    end
-    return nil
-end
-
-while wait() do
-    local boss = getIceBoss()
-    if boss then
-        local hrp = boss.HumanoidRootPart
-        local pivot = hrp:GetPivot()
-        local partVector = hrp.Position
-        
-        local args1 = { "energypunch", pivot }
-        game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args1))
-        
-        local args2 = { pivot }
-        game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(unpack(args2))
-        
-        game:GetService("Players").LocalPlayer.Character.Fire:FireServer(partVector)
-                    
-        game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
-local args = {
-                        [1] = "AncientItem",
-                        [2] = workspace.ingeik.HumanoidRootPart.CFrame
-                    }
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-local args = {
-    [1] = "CorruptionBarrage"
-}
-
-game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-
-    end
-            end
-   end,
-})
-
-local MainButton = MainTab:CreateButton({
-   Name = "Auto Accept Frost Quest (Space)",
-   Callback = function()
-   local args = {
-    [1] = "Frost"
-}
-
-game:GetService("ReplicatedStorage").Events.Quest:FireServer(unpack(args))
-            local args = {
-    [1] = "Frost"
-}
-
-game:GetService("ReplicatedStorage").Functions.Quest:InvokeServer(unpack(args))
-            
-   end,
-})
-
-local MainToggle = MainTab:CreateToggle({
-    Name = "Auto Kill FireNPC",
+ 
+ local Toggle = MainTab:CreateToggle({
+    Name = "Auto Kill IceBoss",
     CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Flag = "Toggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
-        local runVariable = Value
-local blacklist = {"earth", "ice", "fireboss"}
-local chosenskill = "punch" -- You can pick between "punch" and "fire"
-
-local tweenService = game:GetService("TweenService")
-
-local debounce = false
-
-local function playerTweenFunction(cframe)
-    if debounce then return end
-    debounce = true
-
-    local player = game.Players.LocalPlayer
-    local character = player.Character
-    local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
-    if not HumanoidRootPart then return end
-
-    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-    local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
-    tween:Play()
-
-    tween.Completed:Connect(function()
-        debounce = false
-    end)
-end
-
-local function isBlacklisted(name)
-    local lowerName = name:lower()
-    for _, word in ipairs(blacklist) do
-        if lowerName:find(word) then
-            return true
-        end
-    end
-    return false
-end
-
-local function noclip(bool)
-    local player = game.Players.LocalPlayer
-    local character = player.Character
-
-    if bool == true then
-        for _, part in pairs(character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = false
-            end
-        end
-    else
-        for _, part in pairs(character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part.CanCollide = true
-            end
-        end
-    end
-end
-
-local runVariable = true
-while runVariable == true do
-    noclip(true)
-
-    for _, npc in ipairs(workspace.IgnoreSpace:GetChildren()) do
-        if npc:IsA("Model") and npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") and not isBlacklisted(npc.Name) then
-            while npc.Humanoid.Health > 0 do
-                if chosenskill == "punch" then
-                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energyblast", npc.HumanoidRootPart.CFrame)
-                    game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(npc.HumanoidRootPart.CFrame)
-
-                    -- Added Remote Event for AncientItem
-                    local args = {
-                        [1] = "AncientItem",
-                        [2] = workspace.ingeik.HumanoidRootPart.CFrame
-                    }
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-
-                elseif chosenskill == "fire" then 
-                    playerTweenFunction(npc.HumanoidRootPart.CFrame)
-                    game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
-                end
-                wait()
-            end
-        end
-    end
-    wait()
-end
-
-Toggle:Set(false)
-
-   end,
-})
+    local blacklist = { "earth", "fire", "icenpc" }
+ 
+ local function isBlacklisted(name)
+     local lowerName = name:lower()
+     for _, word in ipairs(blacklist) do
+         if lowerName:find(word) then
+             return true
+         end
+     end
+     return false
+ end
+ 
+ local function getIceBoss()
+     for _, obj in ipairs(workspace.IgnoreSpace:GetChildren()) do
+         local lowerName = obj.Name:lower()
+         -- Check if the object name contains "earthboss" and is not blacklisted
+         if lowerName:find("iceboss") and not isBlacklisted(lowerName) and obj:FindFirstChild("HumanoidRootPart") then
+             return obj
+         end
+     end
+     return nil
+ end
+ 
+ while wait() do
+     local boss = getIceBoss()
+     if boss then
+         local hrp = boss.HumanoidRootPart
+         local pivot = hrp:GetPivot()
+         local partVector = hrp.Position
+ 
+         local args1 = { "energypunch", pivot }
+         game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args1))
+ 
+         local args2 = { pivot }
+         game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(unpack(args2))
+ 
+         game:GetService("Players").LocalPlayer.Character.Fire:FireServer(partVector)
+ 
+         game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
+ local args = {
+                         [1] = "AncientItem",
+                         [2] = workspace.ingeik.HumanoidRootPart.CFrame
+                     }
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+ local args = {
+     [1] = "CorruptionBarrage"
+ }
+ 
+ game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+ 
+     end
+             end
+    end,
+ })
+ 
+ local MainButton = MainTab:CreateButton({
+    Name = "Auto Accept Frost Quest (Space)",
+    Callback = function()
+    local args = {
+     [1] = "Frost"
+ }
+ 
+ game:GetService("ReplicatedStorage").Events.Quest:FireServer(unpack(args))
+             local args = {
+     [1] = "Frost"
+ }
+ 
+ game:GetService("ReplicatedStorage").Functions.Quest:InvokeServer(unpack(args))
+ 
+    end,
+ })
+ 
+ local MainToggle = MainTab:CreateToggle({
+     Name = "Auto Kill FireNPC",
+     CurrentValue = false,
+     Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+     Callback = function(Value)
+         local runVariable = Value
+ local blacklist = {"earth", "ice", "fireboss"}
+ local chosenskill = "punch" -- You can pick between "punch" and "fire"
+ 
+ local tweenService = game:GetService("TweenService")
+ 
+ local debounce = false
+ 
+ local function playerTweenFunction(cframe)
+     if debounce then return end
+     debounce = true
+ 
+     local player = game.Players.LocalPlayer
+     local character = player.Character
+     local HumanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+     if not HumanoidRootPart then return end
+ 
+     local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+     local tween = game:GetService("TweenService"):Create(HumanoidRootPart, tweenInfo, {CFrame = cframe})
+     tween:Play()
+ 
+     tween.Completed:Connect(function()
+         debounce = false
+     end)
+ end
+ 
+ local function isBlacklisted(name)
+     local lowerName = name:lower()
+     for _, word in ipairs(blacklist) do
+         if lowerName:find(word) then
+             return true
+         end
+     end
+     return false
+ end
+ 
+ local function noclip(bool)
+     local player = game.Players.LocalPlayer
+     local character = player.Character
+ 
+     if bool == true then
+         for _, part in pairs(character:GetChildren()) do
+             if part:IsA("BasePart") then
+                 part.CanCollide = false
+             end
+         end
+     else
+         for _, part in pairs(character:GetChildren()) do
+             if part:IsA("BasePart") then
+                 part.CanCollide = true
+             end
+         end
+     end
+ end
+ 
+ local runVariable = true
+ while runVariable == true do
+     noclip(true)
+ 
+     for _, npc in ipairs(workspace.IgnoreSpace:GetChildren()) do
+         if npc:IsA("Model") and npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") and not isBlacklisted(npc.Name) then
+             while npc.Humanoid.Health > 0 do
+                 if chosenskill == "punch" then
+                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energypunch", npc.HumanoidRootPart.CFrame)
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer("energyblast", npc.HumanoidRootPart.CFrame)
+                     game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(npc.HumanoidRootPart.CFrame)
+ 
+                     -- Added Remote Event for AncientItem
+                     local args = {
+                         [1] = "AncientItem",
+                         [2] = workspace.ingeik.HumanoidRootPart.CFrame
+                     }
+                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+ 
+                 elseif chosenskill == "fire" then 
+                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
+                     game:GetService("Players").LocalPlayer.Character.Fire:FireServer(npc.HumanoidRootPart.Position)
+                 end
+                 wait()
+             end
+         end
+     end
+     wait()
+ end
+ 
+ Toggle:Set(false)
+ 
+    end,
+ })
