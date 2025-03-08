@@ -121,7 +121,6 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-game:GetService("ReplicatedStorage").Functions.Skill:InvokeServer("SoulHarvest", npc.HumanoidRootPart)
 
                 elseif chosenskill == "fire" then 
                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
@@ -152,85 +151,6 @@ end)
 
    end,
 })
-
-local Toggle = MainTab:CreateToggle({
-   Name = "Auto Kill IceBoss",
-   CurrentValue = false,
-   Flag = "Toggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   local blacklist = { "earth", "fire", "icenpc" }
-
-local function isBlacklisted(name)
-    local lowerName = name:lower()
-    for _, word in ipairs(blacklist) do
-        if lowerName:find(word) then
-            return true
-        end
-    end
-    return false
-end
-
-local function getIceBoss()
-    for _, obj in ipairs(workspace.IgnoreSpace:GetChildren()) do
-        local lowerName = obj.Name:lower()
-        -- Check if the object name contains "earthboss" and is not blacklisted
-        if lowerName:find("iceboss") and not isBlacklisted(lowerName) and obj:FindFirstChild("HumanoidRootPart") then
-            return obj
-        end
-    end
-    return nil
-end
-
-while wait() do
-    local boss = getIceBoss()
-    if boss then
-        local hrp = boss.HumanoidRootPart
-        local pivot = hrp:GetPivot()
-        local partVector = hrp.Position
-        
-        local args1 = { "energypunch", pivot }
-        game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args1))
-        
-        local args2 = { pivot }
-        game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(unpack(args2))
-        
-        game:GetService("Players").LocalPlayer.Character.Fire:FireServer(partVector)
-                    
-        game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
-local args = {
-                        [1] = "AncientItem",
-                        [2] = workspace.ingeik.HumanoidRootPart.CFrame
-                    }
-                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-local args = {
-    [1] = "CorruptionBarrage"
-}
-
-game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
-game:GetService("ReplicatedStorage").Functions.Skill:InvokeServer("SoulHarvest", npc.HumanoidRootPart)
-
-    end
-            end
-   end,
-})
-
-local MainButton = MainTab:CreateButton({
-   Name = "Auto Accept Frost Quest (Space)",
-   Callback = function()
-   local args = {
-    [1] = "Frost"
-}
-
-game:GetService("ReplicatedStorage").Events.Quest:FireServer(unpack(args))
-            local args = {
-    [1] = "Frost"
-}
-
-game:GetService("ReplicatedStorage").Functions.Quest:InvokeServer(unpack(args))
-            
-   end,
-})
-
 
 local MainToggle = MainTab:CreateToggle({
     Name = "Auto Kill IceNPC",
@@ -372,6 +292,83 @@ while wait() do
         game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
     end
             end
+   end,
+})
+
+local Toggle = MainTab:CreateToggle({
+   Name = "Auto Kill IceBoss",
+   CurrentValue = false,
+   Flag = "Toggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   local blacklist = { "earth", "fire", "icenpc" }
+
+local function isBlacklisted(name)
+    local lowerName = name:lower()
+    for _, word in ipairs(blacklist) do
+        if lowerName:find(word) then
+            return true
+        end
+    end
+    return false
+end
+
+local function getIceBoss()
+    for _, obj in ipairs(workspace.IgnoreSpace:GetChildren()) do
+        local lowerName = obj.Name:lower()
+        -- Check if the object name contains "earthboss" and is not blacklisted
+        if lowerName:find("iceboss") and not isBlacklisted(lowerName) and obj:FindFirstChild("HumanoidRootPart") then
+            return obj
+        end
+    end
+    return nil
+end
+
+while wait() do
+    local boss = getIceBoss()
+    if boss then
+        local hrp = boss.HumanoidRootPart
+        local pivot = hrp:GetPivot()
+        local partVector = hrp.Position
+        
+        local args1 = { "energypunch", pivot }
+        game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args1))
+        
+        local args2 = { pivot }
+        game:GetService("Players").LocalPlayer.Character.FireMeteor2:FireServer(unpack(args2))
+        
+        game:GetService("Players").LocalPlayer.Character.Fire:FireServer(partVector)
+                    
+        game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
+local args = {
+                        [1] = "AncientItem",
+                        [2] = workspace.ingeik.HumanoidRootPart.CFrame
+                    }
+                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+local args = {
+    [1] = "CorruptionBarrage"
+}
+
+game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+
+    end
+            end
+   end,
+})
+
+local MainButton = MainTab:CreateButton({
+   Name = "Auto Accept Frost Quest (Space)",
+   Callback = function()
+   local args = {
+    [1] = "Frost"
+}
+
+game:GetService("ReplicatedStorage").Events.Quest:FireServer(unpack(args))
+            local args = {
+    [1] = "Frost"
+}
+
+game:GetService("ReplicatedStorage").Functions.Quest:InvokeServer(unpack(args))
+            
    end,
 })
 
