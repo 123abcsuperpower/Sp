@@ -116,6 +116,11 @@ while runVariable == true do
                         [2] = workspace.ingeik.HumanoidRootPart.CFrame
                     }
                     game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+local args = {
+    [1] = "CorruptionBarrage"
+}
+
+game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
 
                 elseif chosenskill == "fire" then 
                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
@@ -334,6 +339,17 @@ while wait() do
         game:GetService("Players").LocalPlayer.Character.Fire:FireServer(partVector)
                     
         game:GetService("Players").LocalPlayer.Character.FireElectricLasers:FireServer(partVector)
+local args = {
+                        [1] = "AncientItem",
+                        [2] = workspace.ingeik.HumanoidRootPart.CFrame
+                    }
+                    game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+local args = {
+    [1] = "CorruptionBarrage"
+}
+
+game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+
     end
             end
    end,
