@@ -121,6 +121,7 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage").Events.UseSkill:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Functions.Skill:InvokeServer("SoulHarvest", npc.HumanoidRootPart)
 
                 elseif chosenskill == "fire" then 
                     playerTweenFunction(npc.HumanoidRootPart.CFrame)
